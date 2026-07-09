@@ -1,0 +1,533 @@
+
+
+Zikii · HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zikii — Where Artists & Fans Actually Meet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5EEDF;
+    --ink:#171412;
+    --coral:#FF4E3A;
+    --yellow:#FFC93C;
+    --violet:#6C3EF4;
+    --green:#1E8E5A;
+    --line:rgba(23,20,18,0.14);
+    --ease:cubic-bezier(.65,0,.35,1);
+  }
+ 
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+ 
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:400;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(23,20,18,0.09) 1px, transparent 0);
+    background-size:22px 22px;
+  }
+ 
+  ::selection{background:var(--coral);color:var(--paper);}
+ 
+  h1,h2,h3,.display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    line-height:0.94;
+  }
+ 
+  .hand{font-family:'Caveat',cursive;font-weight:700;}
+ 
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;}
+ 
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:200;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 5vw;
+    background:var(--paper);
+    border-bottom:3px solid var(--ink);
+  }
+  .nav-mark{
+    font-family:'Anton',sans-serif;font-size:28px;letter-spacing:0.02em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .nav-mark .dot{width:10px;height:10px;background:var(--coral);border-radius:50%;display:inline-block;}
+  .nav-links{display:flex;gap:36px;list-style:none;align-items:center;}
+  .nav-links a{
+    font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;
+    position:relative;padding:6px 2px;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:3px;background:var(--coral);
+    transition:width .3s var(--ease);
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--ink);color:var(--paper);
+    padding:11px 20px;border-radius:100px;font-size:13px;font-weight:600;
+    text-transform:uppercase;letter-spacing:0.03em;
+    border:2px solid var(--ink);
+    transition:transform .25s var(--ease), background .25s var(--ease);
+  }
+  .nav-cta:hover{background:var(--coral);border-color:var(--coral);transform:translateY(-2px);}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .nav-toggle span{width:24px;height:3px;background:var(--ink);border-radius:2px;}
+ 
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:170px 5vw 100px;
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    overflow:hidden;
+  }
+ 
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--yellow);border:2px solid var(--ink);
+    padding:8px 16px;border-radius:100px;font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.04em;
+    transform:rotate(-2deg);
+    width:fit-content;
+    margin-bottom:28px;
+  }
+ 
+  .hero-title{
+    font-size:clamp(52px,9.5vw,140px);
+    max-width:16ch;
+  }
+  .hero-title .line2{color:var(--coral);-webkit-text-stroke:0;}
+  .hero-title .line3{-webkit-text-stroke:3px var(--ink);color:var(--paper);}
+ 
+  .hero-sub{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+    margin-top:40px;flex-wrap:wrap;
+  }
+  .hero-sub p{
+    font-size:18px;line-height:1.6;max-width:44ch;font-weight:400;color:#3a3530;
+  }
+ 
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--ink);color:var(--paper);
+    padding:18px 32px;border-radius:100px;
+    font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;
+    border:2px solid var(--ink);
+    transition:transform .3s var(--ease), background .3s var(--ease), color .3s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-primary:hover{background:var(--paper);color:var(--ink);transform:translateY(-3px) rotate(-1deg);}
+ 
+  /* floating stickers */
+  .sticker{
+    position:absolute;
+    background:var(--paper);
+    border:2.5px solid var(--ink);
+    border-radius:14px;
+    padding:14px 16px;
+    box-shadow:6px 6px 0 var(--ink);
+    font-size:13px;font-weight:600;
+  }
+  .sticker.s1{top:14%;right:8vw;transform:rotate(6deg);background:var(--violet);color:var(--paper);
+    animation:float1 7s ease-in-out infinite;}
+  .sticker.s2{top:48%;right:2vw;transform:rotate(-5deg);
+    animation:float2 6s ease-in-out infinite;}
+  .sticker.s3{bottom:10%;right:16vw;transform:rotate(3deg);background:var(--green);color:var(--paper);
+    animation:float1 8s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translateY(0) rotate(6deg);}50%{transform:translateY(-14px) rotate(4deg);}}
+  @keyframes float2{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(12px) rotate(-7deg);}}
+ 
+  /* ---------- MARQUEE ---------- */
+  .marquee-strip{
+    background:var(--ink);color:var(--paper);
+    padding:16px 0;overflow:hidden;white-space:nowrap;
+    border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+    transform:rotate(-1.2deg) scale(1.03);
+    margin:0 -5vw;
+  }
+  .marquee-track{display:inline-flex;animation:scroll 26s linear infinite;}
+  .marquee-track span{
+    font-family:'Anton',sans-serif;font-size:22px;padding:0 26px;
+    display:inline-flex;align-items:center;gap:26px;text-transform:uppercase;letter-spacing:0.02em;
+  }
+  .marquee-track span::after{content:'✦';color:var(--coral);font-size:16px;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+ 
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:140px 5vw;position:relative;}
+  .section-head{margin-bottom:70px;}
+  .section-eyebrow{
+    font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--coral);margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .section-eyebrow::before{content:'';width:24px;height:3px;background:var(--coral);border-radius:2px;}
+  .section-head h2{font-size:clamp(38px,6vw,88px);}
+ 
+  /* ---------- ABOUT ---------- */
+  #about{background:var(--ink);color:var(--paper);}
+  #about .section-eyebrow{color:var(--yellow);}
+  #about .section-eyebrow::before{background:var(--yellow);}
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:80px;align-items:start;}
+  .about-lede{
+    font-family:'Anton',sans-serif;font-size:clamp(26px,3vw,42px);line-height:1.2;
+    text-transform:none;
+  }
+  .about-lede .hl{color:var(--yellow);}
+  .about-body{margin-top:28px;font-size:16px;line-height:1.85;color:#d8d2c4;max-width:52ch;}
+  .about-body + .about-body{margin-top:16px;}
+ 
+  .about-cards{display:flex;flex-direction:column;gap:18px;}
+  .about-card{
+    background:#231f1b;border:2px solid #3a352e;border-radius:18px;padding:24px;
+    transition:transform .3s var(--ease), border-color .3s var(--ease);
+  }
+  .about-card:hover{transform:translateX(6px);border-color:var(--coral);}
+  .about-card .num{font-family:'Anton',sans-serif;font-size:32px;color:var(--coral);}
+  .about-card p{font-size:14px;color:#b8b1a1;margin-top:6px;line-height:1.6;}
+ 
+  /* ---------- WHAT WE OFFER ---------- */
+  #offer{background:var(--paper);}
+  .offer-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:26px;
+  }
+  .offer-card{
+    background:var(--paper);border:2.5px solid var(--ink);border-radius:22px;
+    padding:34px;position:relative;overflow:hidden;
+    box-shadow:8px 8px 0 var(--ink);
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .offer-card:hover{transform:translate(-4px,-4px);box-shadow:12px 12px 0 var(--ink);}
+  .offer-icon{
+    width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    font-size:26px;margin-bottom:22px;border:2px solid var(--ink);
+  }
+  .offer-card.c1 .offer-icon{background:var(--coral);}
+  .offer-card.c2 .offer-icon{background:var(--yellow);}
+  .offer-card.c3 .offer-icon{background:var(--violet);color:var(--paper);}
+  .offer-card.c4 .offer-icon{background:var(--green);color:var(--paper);}
+  .offer-card h3{font-size:clamp(24px,2.4vw,32px);margin-bottom:12px;}
+  .offer-card p{font-size:15px;line-height:1.7;color:#3a3530;max-width:42ch;}
+  .offer-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}
+  .offer-tags span{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;
+    border:1.5px solid var(--ink);border-radius:100px;padding:5px 12px;
+  }
+ 
+  /* ---------- AUCTION BANNER ---------- */
+  .auction-banner{
+    margin-top:60px;
+    background:var(--coral);color:var(--paper);
+    border:3px solid var(--ink);border-radius:26px;
+    padding:50px 6vw;
+    display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;
+    box-shadow:10px 10px 0 var(--ink);
+    position:relative;
+  }
+  .auction-stamp{
+    position:absolute;top:-22px;left:40px;
+    background:var(--yellow);color:var(--ink);border:2.5px solid var(--ink);
+    padding:8px 18px;border-radius:100px;font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.04em;transform:rotate(-4deg);
+  }
+  .auction-banner h3{font-size:clamp(30px,4.4vw,52px);max-width:14ch;}
+  .auction-banner p{font-size:15px;line-height:1.7;max-width:38ch;color:#ffe3dd;margin-top:14px;}
+  .auction-cta{
+    background:var(--ink);color:var(--paper);padding:16px 30px;border-radius:100px;
+    font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;
+    border:2px solid var(--ink);white-space:nowrap;
+    transition:background .3s var(--ease), color .3s var(--ease);
+  }
+  .auction-cta:hover{background:var(--paper);color:var(--ink);}
+ 
+  /* ---------- FAQ ---------- */
+  #faq{background:var(--ink);color:var(--paper);}
+  #faq .section-eyebrow{color:var(--green);}
+  #faq .section-eyebrow::before{background:var(--green);}
+  .faq-list{max-width:900px;}
+  .faq-item{border-bottom:2px solid #3a352e;}
+  .faq-item:first-child{border-top:2px solid #3a352e;}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:30px;
+    padding:26px 4px;font-size:clamp(17px,2vw,22px);font-weight:600;color:var(--paper);
+  }
+  .faq-q .plus{
+    flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--paper);
+    position:relative;transition:background .3s var(--ease), border-color .3s var(--ease);
+  }
+  .faq-q .plus::before,.faq-q .plus::after{
+    content:'';position:absolute;background:var(--paper);
+    top:50%;left:50%;transform:translate(-50%,-50%);
+  }
+  .faq-q .plus::before{width:12px;height:2px;}
+  .faq-q .plus::after{width:2px;height:12px;transition:transform .35s var(--ease);}
+  .faq-item.open .plus{background:var(--coral);border-color:var(--coral);}
+  .faq-item.open .plus::after{transform:translate(-50%,-50%) rotate(90deg) scale(0);}
+ 
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease);}
+  .faq-a-inner{padding:0 4px 28px;font-size:15px;line-height:1.85;color:#c9c2b3;max-width:62ch;}
+ 
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--paper);color:var(--ink);
+    padding:70px 5vw 36px;border-top:3px solid var(--ink);
+  }
+  .footer-top{
+    display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:44px;margin-bottom:50px;
+  }
+  .footer-mark{font-family:'Anton',sans-serif;font-size:34px;}
+  .footer-cols{display:flex;gap:70px;flex-wrap:wrap;}
+  .footer-col h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;font-weight:700;color:var(--coral);}
+  .footer-col a,.footer-col p{display:block;font-size:14px;line-height:2.1;color:#3a3530;}
+  .footer-col a:hover{color:var(--coral);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;font-size:12px;font-weight:500;
+    border-top:2px solid var(--line);padding-top:22px;flex-wrap:wrap;gap:10px;
+  }
+ 
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+ 
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+ 
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .nav-links{
+      position:fixed;inset:0;top:66px;background:var(--paper);
+      flex-direction:column;justify-content:center;align-items:center;gap:30px;
+      transform:translateY(-110%);transition:transform .45s var(--ease);
+      border-top:3px solid var(--ink);
+    }
+    .nav-links.open{transform:translateY(0);}
+    .nav-toggle{display:flex;}
+    .nav-cta{display:none;}
+    .sticker{display:none;}
+    .about-grid,.offer-grid{grid-template-columns:1fr;}
+    section{padding:90px 6vw;}
+    .auction-banner{padding:40px 6vw;}
+  }
+</style>
+</head>
+<body>
+ 
+<nav class="nav" id="nav">
+  <div class="nav-mark"><span class="dot"></span>ZIKII</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#offer">What We Offer</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#offer" class="nav-cta">Join The Block</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span></button>
+</nav>
+ 
+<!-- HOME / HERO -->
+<section id="home" class="hero">
+  <div class="hero-badge">✦ New here? This is your artist's front door</div>
+ 
+  <h1 class="hero-title">Your favorite<br><span class="line2">artists,</span><br><span class="line3">up close.</span></h1>
+ 
+  <div class="hero-sub">
+    <p>Zikii is the one place big-name artists actually hang out with their fans — drop merch, sell albums before anyone else has them, hand out meetup tickets, and once a month, auction off their biggest pieces live.</p>
+    <a href="#offer" class="btn-primary">See what's dropping →</a>
+  </div>
+ 
+  <div class="sticker s1">🎧 first-drop<br>albums</div>
+  <div class="sticker s2">🎟️ meetup<br>tickets</div>
+  <div class="sticker s3">🔨 last friday<br>auctions</div>
+</section>
+ 
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>MERCH DROPS</span><span>UNRELEASED ALBUMS</span><span>MEETUP TICKETS</span><span>LAST FRIDAY AUCTIONS</span><span>DIRECT FROM THE ARTIST</span>
+    <span>MERCH DROPS</span><span>UNRELEASED ALBUMS</span><span>MEETUP TICKETS</span><span>LAST FRIDAY AUCTIONS</span><span>DIRECT FROM THE ARTIST</span>
+  </div>
+</div>
+ 
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">01 — About Zikii</div>
+    <h2>Not a shop.<br>A hangout.</h2>
+  </div>
+ 
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="about-lede">Most platforms put a wall between an artist and the people who show up for them. <span class="hl">Zikii tears that wall down.</span></p>
+      <p class="about-body">We built Zikii as a place where big-name artists — musicians, designers, writers, creators of every kind — show up as themselves, not as a brand account. You'll find their merch and clothing lines, their books, and honestly just everything about their work, sitting right next to a comment from a fan they actually replied to.</p>
+      <p class="about-body">It's social first. Casual, loud, a little messy in the best way — like a group chat that turned into a marketplace. Artists post, fans react, drops happen in real time, and once a month things get especially interesting with a live auction nobody wants to miss.</p>
+    </div>
+ 
+    <div class="about-cards">
+      <div class="about-card"><div class="num">200+</div><p>Big-name artists running their own space on Zikii — music, fashion, books, and beyond.</p></div>
+      <div class="about-card"><div class="num">1st</div><p>Zikii is often where new albums go live before they hit any streaming platform.</p></div>
+      <div class="about-card"><div class="num">Last Fri</div><p>Every month, one night is reserved for the auction — the artists' biggest, rarest pieces, mostly clothes.</p></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- WHAT WE OFFER -->
+<section id="offer">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">02 — What We Offer</div>
+    <h2>Everything the<br>artist's got.</h2>
+  </div>
+ 
+  <div class="offer-grid">
+    <div class="offer-card c1 reveal">
+      <div class="offer-icon">👕</div>
+      <h3>Merch & Clothes</h3>
+      <p>Hoodies, tees, hats, and full clothing lines dropped straight by the artist — plus books and any other project they want their fans to actually hold.</p>
+      <div class="offer-tags"><span>Limited drops</span><span>Direct from artist</span></div>
+    </div>
+ 
+    <div class="offer-card c2 reveal">
+      <div class="offer-icon">🎧</div>
+      <h3>First-Drop Music</h3>
+      <p>Buy albums and singles before they release anywhere else. Artists use Zikii to give their real fans first access, first listen, first everything.</p>
+      <div class="offer-tags"><span>Pre-release</span><span>Fans first</span></div>
+    </div>
+ 
+    <div class="offer-card c3 reveal">
+      <div class="offer-icon">🎟️</div>
+      <h3>Tickets & Meetups</h3>
+      <p>Grab tickets to meetups, listening sessions, and pop-ups — including the rare drops where an artist books people to travel and hang out with them directly.</p>
+      <div class="offer-tags"><span>IRL events</span><span>Travel-with-artist</span></div>
+    </div>
+ 
+    <div class="offer-card c4 reveal">
+      <div class="offer-icon">💬</div>
+      <h3>Real Interaction</h3>
+      <p>Comment, react, and get replies from the artist's actual page. No formality, no PR filter — this is the closest a fanbase gets to the person behind the work.</p>
+      <div class="offer-tags"><span>Social feed</span><span>No middlemen</span></div>
+    </div>
+  </div>
+ 
+  <div class="auction-banner reveal">
+    <div class="auction-stamp">Happens every month</div>
+    <div>
+      <h3>Last Friday.<br>The Big Auction.</h3>
+      <p>Once a month, every last Friday, artists put their biggest pieces — mostly clothes, sometimes one-of-ones — up for a live auction. Highest bid wins, no restocks, no second chances.</p>
+    </div>
+    <a href="#faq" class="auction-cta">How auctions work →</a>
+  </div>
+</section>
+ 
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">03 — FAQ</div>
+    <h2>Quick<br>questions.</h2>
+  </div>
+ 
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-q"><span>Who actually sells on Zikii?</span><span class="plus"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Big-name artists directly — musicians, designers, authors, and creators — not resellers. Every page is run by the artist's own team, so what you see, comment on, and buy is coming straight from them.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>How does buying an album before release work?</span><span class="plus"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Artists list upcoming albums or singles on their Zikii page ahead of the official release date. You purchase early access, get the tracks the moment the artist unlocks them, and often some exclusive bonus content too.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>What kind of meetups and tickets are these?</span><span class="plus"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Everything from small listening sessions and pop-up signings to bigger events where an artist is literally booking a group of fans to travel with them somewhere. Ticket details, dates, and spots left are always shown on the event page.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>How does the Last Friday auction work?</span><span class="plus"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">On the last Friday of every month, participating artists list their biggest or rarest pieces — mostly clothing — for live bidding. You place bids in real time, the highest bid at closing wins, and pieces are one-off, so nothing gets restocked afterward.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>Can I actually talk to the artists?</span><span class="plus"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Yes — that's the whole point of Zikii. Every artist page has a live feed where fans comment and artists reply directly. It's built to feel like a group chat, not a storefront with a contact form.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>Is Zikii free to join?</span><span class="plus"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Joining and browsing is completely free. You only pay for what you choose to buy — merch, music, tickets, or a winning auction bid.</div></div>
+    </div>
+  </div>
+</section>
+ 
+<footer>
+  <div class="footer-top">
+    <div class="footer-mark">ZIKII</div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Zikii</h4>
+        <a href="#about">About</a>
+        <a href="#offer">What We Offer</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>For Artists</h4>
+        <p>Open your page</p>
+        <p>Host an auction</p>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Twitter / X</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Zikii. Made for artists and the people who show up for them.</span>
+    <span>Based in Kigali.</span>
+  </div>
+</footer>
+ 
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+ 
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+ 
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if (isOpen) {
+        item.classList.remove('open');
+        a.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+ 
+</body>
+</html>
+ 
